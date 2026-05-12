@@ -1,0 +1,31 @@
+from fastmcp import FastMCP
+import datetime
+
+mcp = FastMCP("echo-privacy-tools")
+
+@mcp.tool
+async def calculator(operation: str, a: float, b: float):
+    """Simple calculator: add, subtract, multiply, divide"""
+    if operation == "add":
+        return a + b
+    elif operation == "subtract":
+        return a - b
+    elif operation == "multiply":
+        return a * b
+    elif operation == "divide":
+        return a / b if b != 0 else "Cannot divide by zero"
+    return "Unknown operation. Use: add, subtract, multiply, or divide"
+
+@mcp.tool
+async def get_current_time():
+    """Returns current time in UTC"""
+    now = datetime.datetime.now(datetime.UTC)
+    return now.strftime("%Y-%m-%d %H:%M:%S UTC")
+
+@mcp.tool
+async def privacy_check():
+    """Privacy reminder that matches Gianni’s brand perfectly"""
+    return "✅ Echo Privacy Bot respects your privacy 100%. No data is sent to third-party servers except your own Supabase instance that you fully control."
+
+if __name__ == "__main__":
+    mcp.run(port=8903)

@@ -3,7 +3,7 @@
 A clean, direct FastMCP server for testing MCP clients.
 This version uses FastMCP's built-in HTTP transport without web framework complications.
 '''
-
+from custom_tools import mcp as custom_mcp
 import asyncio
 import random
 from fastmcp import FastMCP
@@ -32,6 +32,9 @@ TOY_SERVER_NAME = 'Toy MCP Server'
 TOY_SERVER_VERSION = '0.0.4'
 TOY_SERVER_DESCRIPTION = 'A clean FastMCP server with basic tools for testing'
 TOY_SERVER_PORT = 8901
+
+# Mount our custom tools so the bot can use them
+app.mount("/custom", custom_mcp.app)
 
 # Initialize FastMCP
 mcp = FastMCP(
