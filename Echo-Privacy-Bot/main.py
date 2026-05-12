@@ -1,11 +1,16 @@
 import discord
 from discord import app_commands
 import datetime
+import os
 from groq import Groq
 
-# ========================== TOKENS ==========================
-DISCORD_TOKEN = "MTUwMzU2NjAwNDgyMTk1MDU5NQ.GPwP8j.4HXZX_IkHRTEb0KzslL6Bt2k7CEsw2qmhM7f1Y"
-GROQ_API_KEY = "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"
+# Load tokens from environment variables (safe for GitHub + Render)
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not DISCORD_TOKEN or not GROQ_API_KEY:
+    print("❌ ERROR: DISCORD_TOKEN or GROQ_API_KEY environment variable is missing!")
+    exit(1)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -14,7 +19,6 @@ tree = app_commands.CommandTree(bot)
 
 groq_client = Groq(api_key=GROQ_API_KEY)
 
-# ====================== 3 CUSTOM TOOLS ======================
 @tree.command(name="calculator", description="Simple calculator")
 @app_commands.describe(operation="add/subtract/multiply/divide", a="first number", b="second number")
 async def calculator(interaction: discord.Interaction, operation: str, a: float, b: float):
@@ -42,7 +46,6 @@ async def privacy_check(interaction: discord.Interaction):
     embed = discord.Embed(title="Privacy Check", description="Echo Privacy Bot respects your privacy 100%. No data is sent to third-party servers.", color=0x00ff88)
     await interaction.response.send_message(embed=embed)
 
-# ====================== AI CHAT ======================
 @tree.command(name="chat", description="Talk to the AI agent")
 @app_commands.describe(message="Your message")
 async def chat(interaction: discord.Interaction, message: str):
