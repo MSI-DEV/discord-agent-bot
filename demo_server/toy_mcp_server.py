@@ -1,4 +1,4 @@
-# toy_mcp_server.py - Echo Privacy Bot tools (single file version)
+# toy_mcp_server.py - Echo Privacy Bot MCP Tools
 import asyncio
 import random
 import datetime
@@ -7,7 +7,6 @@ import structlog
 
 logger = structlog.get_logger(__name__)
 
-# Server settings
 TOY_SERVER_NAME = 'Echo Privacy Tools'
 TOY_SERVER_VERSION = '1.0.0'
 TOY_SERVER_DESCRIPTION = 'Privacy-first utility tools for Echo Privacy Bot'
@@ -44,7 +43,7 @@ async def privacy_check() -> str:
     """Privacy reminder that matches Gianni’s brand"""
     return "✅ Echo Privacy Bot respects your privacy 100%. No data is sent to third-party servers except your own Supabase instance that you fully control."
 
-# === ORIGINAL DEMO TOOLS (kept for safety) ===
+# === ORIGINAL DEMO TOOLS (keep them) ===
 @mcp.tool()
 async def add(a: int, b: int) -> int:
     '''Adds two integers together.'''
