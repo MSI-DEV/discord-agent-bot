@@ -11,4 +11,4 @@ Privacy-first Discord AI bot with custom tools.
 
 Live bot: [add your invite link after deploy]
 
-Built in 2 days as a personal project.
+Built in 1 days as a personal project.
