@@ -28,4 +28,4 @@ async def privacy_check():
     return "✅ Echo Privacy Bot respects your privacy 100%. No data is sent to third-party servers except your own Supabase instance that you fully control."
 
 if __name__ == "__main__":
-    mcp.run(port=8903)
+    mcp.run_http_async(host="127.0.0.1", port=8903)
