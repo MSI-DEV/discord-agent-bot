@@ -1,0 +1,93 @@
+# SPDX-FileCopyrightText: 2025-present Oori Data <info@oori.dev>
+# SPDX-License-Identifier: Apache-2.0
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "discord-ai-agent"
+dynamic = ["version"]
+# version = "0.0.3"
+description = "Discord bot for supporting AI/LLM chat applications powered by the Model Context Protocol (MCP), allowing for numerous integrations"
+readme = "README.md"
+requires-python = ">=3.12"
+
+license = "Apache-2.0"
+keywords = []
+authors = [
+  { name = "Uche Ogbuji", email = "uche@ogbuji.net" },
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+dependencies = [  # https://hatch.pypa.io/latest/config/dependency/
+    "discord>=2.3.2",
+    "fire>=0.7.0",
+    "fastmcp",  # Rather than mcp, which is "official", but 1.x & not as well maintained
+    "ogbujipt>=0.9.6",
+    "rich>=14.0.0",
+    "structlog>=25.2.0",
+    "httpx>=0.25.0", # Added httpx
+    "tenacity>=8.2.0", # For retry logic
+    "chonkie", # For text chunking
+    "html2text", # For HTML to Markdown conversion
+]
+
+# Optional dependencies
+[project.optional-dependencies]
+rss = [
+    "feedparser>=6.0.11",
+]
+openai = [
+    "openai>=1.0.0",
+]
+claude = [
+    "anthropic>=0.18.0",
+]
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.10.0",
+    "pytest-httpx>=0.24.0",
+    "pytest-cov>=4.0.0",
+    "numpy>=1.24.0",
+]
+
+[project.urls]
+Documentation = "https://github.com/OoriData/Discord-AI-Agent#readme"
+Issues = "https://github.com/OoriData/Discord-AI-Agent/issues"
+Source = "https://github.com/OoriData/Discord-AI-Agent"
+
+[tool.hatch.version]
+path = "pylib/__about__.py"
+
+[tool.hatch.build]
+include = ["*.toml", "*.py"]
+# include = ["*.toml", "*.html", "*.py", "pylib/resource/**"]
+
+[tool.hatch.build.sources]  # Rewriting path in distribution
+"pylib" = "discord_aiagent"
+
+# Include non-python files in the distribution https://hatch.pypa.io/latest/config/build/#forced-inclusion
+# [tool.hatch.build.targets.wheel.force-include]
+# 'pylib/resource' = 'discord_aiagent/resource'
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+]
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+asyncio_mode = "auto"

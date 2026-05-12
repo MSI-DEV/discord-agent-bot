@@ -1,0 +1,9 @@
+fastmcp  # Rather than mcp, which is "official", but 1.x & not as well maintained
+discord
+structlog
+asyncpg
+pgvector
+sentence_transformers
+tenacity
+chonkie
+html2text
